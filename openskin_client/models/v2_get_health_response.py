@@ -52,8 +52,8 @@ class V2GetHealthResponse(BaseModel):
     @field_validator('environment')
     def environment_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['v2-test']):
-            raise ValueError("must be one of enum values ('v2-test')")
+        if value not in set(['production', 'v2-test']):
+            raise ValueError("must be one of enum values ('production', 'v2-test')")
         return value
 
     model_config = ConfigDict(
