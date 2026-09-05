@@ -1,0 +1,11 @@
+# flake8: noqa
+
+# import apis into api package
+from openskin_client.api.platform_v2_api import PlatformV2Api
+from openskin_client.api.platform_v2_automation_api import PlatformV2AutomationApi
+from openskin_client.api.platform_v2_market_analytics_api import PlatformV2MarketAnalyticsApi
+from openskin_client.api.platform_v2_media_api import PlatformV2MediaApi
+from openskin_client.api.platform_v2_pricing_api import PlatformV2PricingApi
+from openskin_client.api.platform_v2_profiles_api import PlatformV2ProfilesApi
+from openskin_client.api.platform_v2_webhooks_api import PlatformV2WebhooksApi
+
