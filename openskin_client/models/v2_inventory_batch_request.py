@@ -19,8 +19,10 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from openskin_client.models.v2_inventory_freshness import V2InventoryFreshness
+from openskin_client.models.v2_inventory_request_proxy import V2InventoryRequestProxy
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,9 +31,11 @@ class V2InventoryBatchRequest(BaseModel):
     """
     V2InventoryBatchRequest
     """ # noqa: E501
+    proxy: Optional[V2InventoryRequestProxy] = None
+    freshness: Optional[V2InventoryFreshness] = None
     steam_ids: Annotated[List[StrictStr], Field(min_length=1, max_length=20)]
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["steam_ids"]
+    __properties: ClassVar[List[str]] = ["proxy", "freshness", "steam_ids"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,6 +78,12 @@ class V2InventoryBatchRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of proxy
+        if self.proxy:
+            _dict['proxy'] = self.proxy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of freshness
+        if self.freshness:
+            _dict['freshness'] = self.freshness.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -91,6 +101,8 @@ class V2InventoryBatchRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "proxy": V2InventoryRequestProxy.from_dict(obj["proxy"]) if obj.get("proxy") is not None else None,
+            "freshness": V2InventoryFreshness.from_dict(obj["freshness"]) if obj.get("freshness") is not None else None,
             "steam_ids": obj.get("steam_ids")
         })
         # store additional fields in additional_properties

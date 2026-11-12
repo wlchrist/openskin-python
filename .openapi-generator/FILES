@@ -99,6 +99,7 @@ openskin_client/models/v2_get_price_history_response.py
 openskin_client/models/v2_get_scene_response.py
 openskin_client/models/v2_get_steam_account_health_response.py
 openskin_client/models/v2_get_steam_friends_response.py
+openskin_client/models/v2_get_steam_partner_inventory_response.py
 openskin_client/models/v2_get_steam_profile_batch_response.py
 openskin_client/models/v2_get_steam_profile_response.py
 openskin_client/models/v2_get_steam_trade_eligibility_response.py
@@ -123,8 +124,11 @@ openskin_client/models/v2_inventory_batch_request.py
 openskin_client/models/v2_inventory_batch_response.py
 openskin_client/models/v2_inventory_batch_result.py
 openskin_client/models/v2_inventory_catalog_item.py
+openskin_client/models/v2_inventory_fetch_request.py
+openskin_client/models/v2_inventory_freshness.py
 openskin_client/models/v2_inventory_history_entry.py
 openskin_client/models/v2_inventory_history_page.py
+openskin_client/models/v2_inventory_request_proxy.py
 openskin_client/models/v2_inventory_snapshot.py
 openskin_client/models/v2_inventory_snapshot_assets_inner.py
 openskin_client/models/v2_inventory_snapshot_cache.py
@@ -231,6 +235,8 @@ openskin_client/models/v2_steam_friend_list.py
 openskin_client/models/v2_steam_id_formats.py
 openskin_client/models/v2_steam_identity_resolution.py
 openskin_client/models/v2_steam_login_request.py
+openskin_client/models/v2_steam_partner_inventory_observation.py
+openskin_client/models/v2_steam_partner_inventory_request.py
 openskin_client/models/v2_steam_profile.py
 openskin_client/models/v2_steam_trade_budget_usage.py
 openskin_client/models/v2_steam_trade_eligibility.py

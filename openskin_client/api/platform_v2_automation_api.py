@@ -34,6 +34,7 @@ from openskin_client.models.v2_execute_trade_intent_request import V2ExecuteTrad
 from openskin_client.models.v2_get_authenticated_inventory_history_response import V2GetAuthenticatedInventoryHistoryResponse
 from openskin_client.models.v2_get_authenticated_steam_inventory_response import V2GetAuthenticatedSteamInventoryResponse
 from openskin_client.models.v2_get_steam_account_health_response import V2GetSteamAccountHealthResponse
+from openskin_client.models.v2_get_steam_partner_inventory_response import V2GetSteamPartnerInventoryResponse
 from openskin_client.models.v2_list_steam_accounts_response import V2ListSteamAccountsResponse
 from openskin_client.models.v2_list_trades_response import V2ListTradesResponse
 from openskin_client.models.v2_preview_trade_intent_request import V2PreviewTradeIntentRequest
@@ -42,6 +43,7 @@ from openskin_client.models.v2_steam_account_control_request import V2SteamAccou
 from openskin_client.models.v2_steam_account_create_request import V2SteamAccountCreateRequest
 from openskin_client.models.v2_steam_command_page_response import V2SteamCommandPageResponse
 from openskin_client.models.v2_steam_login_request import V2SteamLoginRequest
+from openskin_client.models.v2_steam_partner_inventory_request import V2SteamPartnerInventoryRequest
 from openskin_client.models.v2_steam_trade_history_sync_request import V2SteamTradeHistorySyncRequest
 from openskin_client.models.v2_steam_trade_hold_request import V2SteamTradeHoldRequest
 from openskin_client.models.v2_steam_trade_policy import V2SteamTradePolicy
@@ -3051,6 +3053,328 @@ class PlatformV2AutomationApi:
 
 
     @validate_call
+    async def fetch_v2_steam_partner_inventory(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=128)],
+        v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2CommandReceipt:
+        """Fetch a Steam partner trade inventory
+
+        Queues a private read of the trade-eligible CS2 assets Steam exposes to one connected viewer account. The optional partner token and proxy credentials are encrypted immediately. A supplied proxy handles every page and retry; the request fails rather than switching to another egress path. The result represents trade-eligible coverage; trade creation and complete owner coverage remain separate operations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param idempotency_key: (required)
+        :type idempotency_key: str
+        :param v2_steam_partner_inventory_request: (required)
+        :type v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            idempotency_key=idempotency_key,
+            v2_steam_partner_inventory_request=v2_steam_partner_inventory_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "V2CommandReceipt",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '429': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def fetch_v2_steam_partner_inventory_with_http_info(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=128)],
+        v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2CommandReceipt]:
+        """Fetch a Steam partner trade inventory
+
+        Queues a private read of the trade-eligible CS2 assets Steam exposes to one connected viewer account. The optional partner token and proxy credentials are encrypted immediately. A supplied proxy handles every page and retry; the request fails rather than switching to another egress path. The result represents trade-eligible coverage; trade creation and complete owner coverage remain separate operations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param idempotency_key: (required)
+        :type idempotency_key: str
+        :param v2_steam_partner_inventory_request: (required)
+        :type v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            idempotency_key=idempotency_key,
+            v2_steam_partner_inventory_request=v2_steam_partner_inventory_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "V2CommandReceipt",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '429': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def fetch_v2_steam_partner_inventory_without_preload_content(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        idempotency_key: Annotated[str, Field(min_length=8, strict=True, max_length=128)],
+        v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Fetch a Steam partner trade inventory
+
+        Queues a private read of the trade-eligible CS2 assets Steam exposes to one connected viewer account. The optional partner token and proxy credentials are encrypted immediately. A supplied proxy handles every page and retry; the request fails rather than switching to another egress path. The result represents trade-eligible coverage; trade creation and complete owner coverage remain separate operations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param idempotency_key: (required)
+        :type idempotency_key: str
+        :param v2_steam_partner_inventory_request: (required)
+        :type v2_steam_partner_inventory_request: V2SteamPartnerInventoryRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            idempotency_key=idempotency_key,
+            v2_steam_partner_inventory_request=v2_steam_partner_inventory_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '202': "V2CommandReceipt",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '429': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _fetch_v2_steam_partner_inventory_serialize(
+        self,
+        account_id,
+        idempotency_key,
+        v2_steam_partner_inventory_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if account_id is not None:
+            _path_params['account_id'] = account_id
+        # process the query parameters
+        # process the header parameters
+        if idempotency_key is not None:
+            _header_params['Idempotency-Key'] = idempotency_key
+        # process the form parameters
+        # process the body parameter
+        if v2_steam_partner_inventory_request is not None:
+            _body_params = v2_steam_partner_inventory_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'PlatformAPIKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v2/steam/accounts/{account_id}/partner-inventory/fetch',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     async def fetch_v2_steam_trade_link(
         self,
         account_id: Annotated[int, Field(strict=True, ge=1)],
@@ -4811,6 +5135,294 @@ class PlatformV2AutomationApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/v2/steam/commands/{command_id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def get_v2_steam_partner_inventory(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        command_id: UUID,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2GetSteamPartnerInventoryResponse:
+        """Read an authenticated Steam partner inventory
+
+        Returns the tenant-private trade-eligible observation produced by one completed partner-inventory command. Public inventory caching remains isolated to public observations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param command_id: (required)
+        :type command_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            command_id=command_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetSteamPartnerInventoryResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def get_v2_steam_partner_inventory_with_http_info(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        command_id: UUID,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2GetSteamPartnerInventoryResponse]:
+        """Read an authenticated Steam partner inventory
+
+        Returns the tenant-private trade-eligible observation produced by one completed partner-inventory command. Public inventory caching remains isolated to public observations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param command_id: (required)
+        :type command_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            command_id=command_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetSteamPartnerInventoryResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def get_v2_steam_partner_inventory_without_preload_content(
+        self,
+        account_id: Annotated[int, Field(strict=True, ge=1)],
+        command_id: UUID,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Read an authenticated Steam partner inventory
+
+        Returns the tenant-private trade-eligible observation produced by one completed partner-inventory command. Public inventory caching remains isolated to public observations.
+
+        :param account_id: (required)
+        :type account_id: int
+        :param command_id: (required)
+        :type command_id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_v2_steam_partner_inventory_serialize(
+            account_id=account_id,
+            command_id=command_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetSteamPartnerInventoryResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '404': "V2PlatformErrorResponse",
+            '503': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_v2_steam_partner_inventory_serialize(
+        self,
+        account_id,
+        command_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if account_id is not None:
+            _path_params['account_id'] = account_id
+        if command_id is not None:
+            _path_params['command_id'] = command_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'PlatformAPIKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/v2/steam/accounts/{account_id}/partner-inventory/{command_id}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
