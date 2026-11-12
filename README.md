@@ -6,7 +6,7 @@ required.
 ## Install
 
 ```sh
-pip install openskin-client
+pip install openskin-client==0.2.0
 ```
 
 ## Example

@@ -41,6 +41,7 @@ from openskin_client.models.v2_inspect_create_link_response import V2InspectCrea
 from openskin_client.models.v2_inspect_decode_request import V2InspectDecodeRequest
 from openskin_client.models.v2_inventory_batch_request import V2InventoryBatchRequest
 from openskin_client.models.v2_inventory_batch_response import V2InventoryBatchResponse
+from openskin_client.models.v2_inventory_fetch_request import V2InventoryFetchRequest
 from openskin_client.models.v2_list_audit_events_response import V2ListAuditEventsResponse
 from openskin_client.models.v2_list_capabilities_response import V2ListCapabilitiesResponse
 from openskin_client.models.v2_list_catalog_collections_response import V2ListCatalogCollectionsResponse
@@ -938,6 +939,307 @@ class PlatformV2Api:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/v2/inspect/decode',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def fetch_v2_inventory_with_request_proxy(
+        self,
+        steam_id: Annotated[str, Field(strict=True)],
+        v2_inventory_fetch_request: V2InventoryFetchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2GetInventoryResponse:
+        """Fetch a CS2 inventory through a request-scoped proxy
+
+        Reads an acceptable shared public snapshot when available; otherwise fetches the public Steam inventory only through the HTTP(S) proxy supplied in this request. Proxy configuration and credentials remain request-scoped, and proxy failures return a sanitized upstream error with platform and direct fallback disabled.
+
+        :param steam_id: (required)
+        :type steam_id: str
+        :param v2_inventory_fetch_request: (required)
+        :type v2_inventory_fetch_request: V2InventoryFetchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_inventory_with_request_proxy_serialize(
+            steam_id=steam_id,
+            v2_inventory_fetch_request=v2_inventory_fetch_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '502': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def fetch_v2_inventory_with_request_proxy_with_http_info(
+        self,
+        steam_id: Annotated[str, Field(strict=True)],
+        v2_inventory_fetch_request: V2InventoryFetchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2GetInventoryResponse]:
+        """Fetch a CS2 inventory through a request-scoped proxy
+
+        Reads an acceptable shared public snapshot when available; otherwise fetches the public Steam inventory only through the HTTP(S) proxy supplied in this request. Proxy configuration and credentials remain request-scoped, and proxy failures return a sanitized upstream error with platform and direct fallback disabled.
+
+        :param steam_id: (required)
+        :type steam_id: str
+        :param v2_inventory_fetch_request: (required)
+        :type v2_inventory_fetch_request: V2InventoryFetchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_inventory_with_request_proxy_serialize(
+            steam_id=steam_id,
+            v2_inventory_fetch_request=v2_inventory_fetch_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '502': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def fetch_v2_inventory_with_request_proxy_without_preload_content(
+        self,
+        steam_id: Annotated[str, Field(strict=True)],
+        v2_inventory_fetch_request: V2InventoryFetchRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Fetch a CS2 inventory through a request-scoped proxy
+
+        Reads an acceptable shared public snapshot when available; otherwise fetches the public Steam inventory only through the HTTP(S) proxy supplied in this request. Proxy configuration and credentials remain request-scoped, and proxy failures return a sanitized upstream error with platform and direct fallback disabled.
+
+        :param steam_id: (required)
+        :type steam_id: str
+        :param v2_inventory_fetch_request: (required)
+        :type v2_inventory_fetch_request: V2InventoryFetchRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._fetch_v2_inventory_with_request_proxy_serialize(
+            steam_id=steam_id,
+            v2_inventory_fetch_request=v2_inventory_fetch_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
+            '401': "V2PlatformErrorResponse",
+            '403': "V2PlatformErrorResponse",
+            '502': "V2PlatformErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _fetch_v2_inventory_with_request_proxy_serialize(
+        self,
+        steam_id,
+        v2_inventory_fetch_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if steam_id is not None:
+            _path_params['steam_id'] = steam_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if v2_inventory_fetch_request is not None:
+            _body_params = v2_inventory_fetch_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'PlatformAPIKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/v2/inventories/{steam_id}/fetch',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3368,6 +3670,9 @@ class PlatformV2Api:
     async def get_v2_inventory(
         self,
         steam_id: Annotated[str, Field(strict=True)],
+        max_age_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.")] = None,
+        force_refresh: Annotated[Optional[StrictBool], Field(description="Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.")] = None,
+        stale_if_error_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age allowed only after a Steam failure or rate limit; default 1800.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3383,10 +3688,16 @@ class PlatformV2Api:
     ) -> V2GetInventoryResponse:
         """Read a CS2 inventory
 
-        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available, including wear, paint seed, applied stickers, charms or keychains with pattern and offsets, StatTrak, and name tag. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
+        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available. Ordinary reads return the first saved public observation at any age and avoid a Steam request. An explicit max_age_seconds may fetch a newer observation while retaining the saved copy. A successful force_refresh request replaces it; a private response invalidates it. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
 
         :param steam_id: (required)
         :type steam_id: str
+        :param max_age_seconds: Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.
+        :type max_age_seconds: int
+        :param force_refresh: Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.
+        :type force_refresh: bool
+        :param stale_if_error_seconds: Maximum observation age allowed only after a Steam failure or rate limit; default 1800.
+        :type stale_if_error_seconds: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3411,6 +3722,9 @@ class PlatformV2Api:
 
         _param = self._get_v2_inventory_serialize(
             steam_id=steam_id,
+            max_age_seconds=max_age_seconds,
+            force_refresh=force_refresh,
+            stale_if_error_seconds=stale_if_error_seconds,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3419,6 +3733,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -3437,6 +3752,9 @@ class PlatformV2Api:
     async def get_v2_inventory_with_http_info(
         self,
         steam_id: Annotated[str, Field(strict=True)],
+        max_age_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.")] = None,
+        force_refresh: Annotated[Optional[StrictBool], Field(description="Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.")] = None,
+        stale_if_error_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age allowed only after a Steam failure or rate limit; default 1800.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3452,10 +3770,16 @@ class PlatformV2Api:
     ) -> ApiResponse[V2GetInventoryResponse]:
         """Read a CS2 inventory
 
-        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available, including wear, paint seed, applied stickers, charms or keychains with pattern and offsets, StatTrak, and name tag. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
+        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available. Ordinary reads return the first saved public observation at any age and avoid a Steam request. An explicit max_age_seconds may fetch a newer observation while retaining the saved copy. A successful force_refresh request replaces it; a private response invalidates it. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
 
         :param steam_id: (required)
         :type steam_id: str
+        :param max_age_seconds: Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.
+        :type max_age_seconds: int
+        :param force_refresh: Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.
+        :type force_refresh: bool
+        :param stale_if_error_seconds: Maximum observation age allowed only after a Steam failure or rate limit; default 1800.
+        :type stale_if_error_seconds: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3480,6 +3804,9 @@ class PlatformV2Api:
 
         _param = self._get_v2_inventory_serialize(
             steam_id=steam_id,
+            max_age_seconds=max_age_seconds,
+            force_refresh=force_refresh,
+            stale_if_error_seconds=stale_if_error_seconds,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3488,6 +3815,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -3506,6 +3834,9 @@ class PlatformV2Api:
     async def get_v2_inventory_without_preload_content(
         self,
         steam_id: Annotated[str, Field(strict=True)],
+        max_age_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.")] = None,
+        force_refresh: Annotated[Optional[StrictBool], Field(description="Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.")] = None,
+        stale_if_error_seconds: Annotated[Optional[Annotated[int, Field(le=604800, strict=True, ge=0)]], Field(description="Maximum observation age allowed only after a Steam failure or rate limit; default 1800.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3521,10 +3852,16 @@ class PlatformV2Api:
     ) -> RESTResponseType:
         """Read a CS2 inventory
 
-        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available, including wear, paint seed, applied stickers, charms or keychains with pattern and offsets, StatTrak, and name tag. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
+        Returns any public Steam inventory with one record per asset and exact Valve-provided item state when available. Ordinary reads return the first saved public observation at any age and avoid a Steam request. An explicit max_age_seconds may fetch a newer observation while retaining the saved copy. A successful force_refresh request replaces it; a private response invalidates it. A Platform API key authenticates the API caller, and a publicly visible Steam inventory is the owner's sole requirement.
 
         :param steam_id: (required)
         :type steam_id: str
+        :param max_age_seconds: Maximum observation age before attempting Steam. If omitted, use the saved observation at any age. Cannot accompany force_refresh=true.
+        :type max_age_seconds: int
+        :param force_refresh: Attempt Steam even when a cached observation qualifies; a successful public response replaces the saved durable observation. Default false.
+        :type force_refresh: bool
+        :param stale_if_error_seconds: Maximum observation age allowed only after a Steam failure or rate limit; default 1800.
+        :type stale_if_error_seconds: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3549,6 +3886,9 @@ class PlatformV2Api:
 
         _param = self._get_v2_inventory_serialize(
             steam_id=steam_id,
+            max_age_seconds=max_age_seconds,
+            force_refresh=force_refresh,
+            stale_if_error_seconds=stale_if_error_seconds,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3557,6 +3897,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2GetInventoryResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -3570,6 +3911,9 @@ class PlatformV2Api:
     def _get_v2_inventory_serialize(
         self,
         steam_id,
+        max_age_seconds,
+        force_refresh,
+        stale_if_error_seconds,
         _request_auth,
         _content_type,
         _headers,
@@ -3594,6 +3938,18 @@ class PlatformV2Api:
         if steam_id is not None:
             _path_params['steam_id'] = steam_id
         # process the query parameters
+        if max_age_seconds is not None:
+
+            _query_params.append(('max_age_seconds', max_age_seconds))
+
+        if force_refresh is not None:
+
+            _query_params.append(('force_refresh', force_refresh))
+
+        if stale_if_error_seconds is not None:
+
+            _query_params.append(('stale_if_error_seconds', stale_if_error_seconds))
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -3650,7 +4006,7 @@ class PlatformV2Api:
     ) -> V2InventoryBatchResponse:
         """Resolve up to 20 CS2 inventories
 
-        Results preserve input order and report failures per SteamID.
+        Results preserve input order and report failures per SteamID. An optional freshness object applies one policy to the whole batch; omitted fields use scalar defaults.
 
         :param v2_inventory_batch_request: (required)
         :type v2_inventory_batch_request: V2InventoryBatchRequest
@@ -3686,6 +4042,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2InventoryBatchResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -3719,7 +4076,7 @@ class PlatformV2Api:
     ) -> ApiResponse[V2InventoryBatchResponse]:
         """Resolve up to 20 CS2 inventories
 
-        Results preserve input order and report failures per SteamID.
+        Results preserve input order and report failures per SteamID. An optional freshness object applies one policy to the whole batch; omitted fields use scalar defaults.
 
         :param v2_inventory_batch_request: (required)
         :type v2_inventory_batch_request: V2InventoryBatchRequest
@@ -3755,6 +4112,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2InventoryBatchResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -3788,7 +4146,7 @@ class PlatformV2Api:
     ) -> RESTResponseType:
         """Resolve up to 20 CS2 inventories
 
-        Results preserve input order and report failures per SteamID.
+        Results preserve input order and report failures per SteamID. An optional freshness object applies one policy to the whole batch; omitted fields use scalar defaults.
 
         :param v2_inventory_batch_request: (required)
         :type v2_inventory_batch_request: V2InventoryBatchRequest
@@ -3824,6 +4182,7 @@ class PlatformV2Api:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "V2InventoryBatchResponse",
+            '400': "V2PlatformErrorResponse",
             '401': "V2PlatformErrorResponse",
             '403': "V2PlatformErrorResponse",
         }
@@ -4995,21 +5354,21 @@ class PlatformV2Api:
         # process the path parameters
         # process the query parameters
         if source is not None:
-            
+
             _query_params.append(('source', source))
-            
+
         if event_type is not None:
-            
+
             _query_params.append(('event_type', event_type))
-            
+
         if resource_type is not None:
-            
+
             _query_params.append(('resource_type', resource_type))
-            
+
         if outcome is not None:
-            
+
             _query_params.append(('outcome', outcome))
-            
+
         if var_from is not None:
             if isinstance(var_from, datetime):
                 _query_params.append(
@@ -5022,7 +5381,7 @@ class PlatformV2Api:
                 )
             else:
                 _query_params.append(('from', var_from))
-            
+
         if to is not None:
             if isinstance(to, datetime):
                 _query_params.append(
@@ -5035,15 +5394,15 @@ class PlatformV2Api:
                 )
             else:
                 _query_params.append(('to', to))
-            
+
         if limit is not None:
-            
+
             _query_params.append(('limit', limit))
-            
+
         if cursor is not None:
-            
+
             _query_params.append(('cursor', cursor))
-            
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -5342,17 +5701,17 @@ class PlatformV2Api:
         # process the path parameters
         # process the query parameters
         if state is not None:
-            
+
             _query_params.append(('state', state))
-            
+
         if limit is not None:
-            
+
             _query_params.append(('limit', limit))
-            
+
         if cursor is not None:
-            
+
             _query_params.append(('cursor', cursor))
-            
+
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -6769,53 +7128,53 @@ class PlatformV2Api:
         # process the path parameters
         # process the query parameters
         if q is not None:
-            
+
             _query_params.append(('q', q))
-            
+
         if type is not None:
-            
+
             _query_params.append(('type', type))
-            
+
         if weapon is not None:
-            
+
             _query_params.append(('weapon', weapon))
-            
+
         if exterior is not None:
-            
+
             _query_params.append(('exterior', exterior))
-            
+
         if rarity is not None:
-            
+
             _query_params.append(('rarity', rarity))
-            
+
         if phase is not None:
-            
+
             _query_params.append(('phase', phase))
-            
+
         if stattrak is not None:
-            
+
             _query_params.append(('stattrak', stattrak))
-            
+
         if souvenir is not None:
-            
+
             _query_params.append(('souvenir', souvenir))
-            
+
         if definition_index is not None:
-            
+
             _query_params.append(('definition_index', definition_index))
-            
+
         if paint_index is not None:
-            
+
             _query_params.append(('paint_index', paint_index))
-            
+
         if cursor is not None:
-            
+
             _query_params.append(('cursor', cursor))
-            
+
         if limit is not None:
-            
+
             _query_params.append(('limit', limit))
-            
+
         # process the header parameters
         # process the form parameters
         # process the body parameter

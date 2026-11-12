@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # Define package exports
 __all__ = [
@@ -115,6 +115,7 @@ __all__ = [
     "V2GetSceneResponse",
     "V2GetSteamAccountHealthResponse",
     "V2GetSteamFriendsResponse",
+    "V2GetSteamPartnerInventoryResponse",
     "V2GetSteamProfileBatchResponse",
     "V2GetSteamProfileResponse",
     "V2GetSteamTradeEligibilityResponse",
@@ -139,8 +140,11 @@ __all__ = [
     "V2InventoryBatchResponse",
     "V2InventoryBatchResult",
     "V2InventoryCatalogItem",
+    "V2InventoryFetchRequest",
+    "V2InventoryFreshness",
     "V2InventoryHistoryEntry",
     "V2InventoryHistoryPage",
+    "V2InventoryRequestProxy",
     "V2InventorySnapshot",
     "V2InventorySnapshotAssetsInner",
     "V2InventorySnapshotCache",
@@ -247,6 +251,8 @@ __all__ = [
     "V2SteamIDFormats",
     "V2SteamIdentityResolution",
     "V2SteamLoginRequest",
+    "V2SteamPartnerInventoryObservation",
+    "V2SteamPartnerInventoryRequest",
     "V2SteamProfile",
     "V2SteamTradeBudgetUsage",
     "V2SteamTradeEligibility",
@@ -387,6 +393,7 @@ from openskin_client.models.v2_get_price_history_response import V2GetPriceHisto
 from openskin_client.models.v2_get_scene_response import V2GetSceneResponse as V2GetSceneResponse
 from openskin_client.models.v2_get_steam_account_health_response import V2GetSteamAccountHealthResponse as V2GetSteamAccountHealthResponse
 from openskin_client.models.v2_get_steam_friends_response import V2GetSteamFriendsResponse as V2GetSteamFriendsResponse
+from openskin_client.models.v2_get_steam_partner_inventory_response import V2GetSteamPartnerInventoryResponse as V2GetSteamPartnerInventoryResponse
 from openskin_client.models.v2_get_steam_profile_batch_response import V2GetSteamProfileBatchResponse as V2GetSteamProfileBatchResponse
 from openskin_client.models.v2_get_steam_profile_response import V2GetSteamProfileResponse as V2GetSteamProfileResponse
 from openskin_client.models.v2_get_steam_trade_eligibility_response import V2GetSteamTradeEligibilityResponse as V2GetSteamTradeEligibilityResponse
@@ -411,8 +418,11 @@ from openskin_client.models.v2_inventory_batch_request import V2InventoryBatchRe
 from openskin_client.models.v2_inventory_batch_response import V2InventoryBatchResponse as V2InventoryBatchResponse
 from openskin_client.models.v2_inventory_batch_result import V2InventoryBatchResult as V2InventoryBatchResult
 from openskin_client.models.v2_inventory_catalog_item import V2InventoryCatalogItem as V2InventoryCatalogItem
+from openskin_client.models.v2_inventory_fetch_request import V2InventoryFetchRequest as V2InventoryFetchRequest
+from openskin_client.models.v2_inventory_freshness import V2InventoryFreshness as V2InventoryFreshness
 from openskin_client.models.v2_inventory_history_entry import V2InventoryHistoryEntry as V2InventoryHistoryEntry
 from openskin_client.models.v2_inventory_history_page import V2InventoryHistoryPage as V2InventoryHistoryPage
+from openskin_client.models.v2_inventory_request_proxy import V2InventoryRequestProxy as V2InventoryRequestProxy
 from openskin_client.models.v2_inventory_snapshot import V2InventorySnapshot as V2InventorySnapshot
 from openskin_client.models.v2_inventory_snapshot_assets_inner import V2InventorySnapshotAssetsInner as V2InventorySnapshotAssetsInner
 from openskin_client.models.v2_inventory_snapshot_cache import V2InventorySnapshotCache as V2InventorySnapshotCache
@@ -519,6 +529,8 @@ from openskin_client.models.v2_steam_friend_list import V2SteamFriendList as V2S
 from openskin_client.models.v2_steam_id_formats import V2SteamIDFormats as V2SteamIDFormats
 from openskin_client.models.v2_steam_identity_resolution import V2SteamIdentityResolution as V2SteamIdentityResolution
 from openskin_client.models.v2_steam_login_request import V2SteamLoginRequest as V2SteamLoginRequest
+from openskin_client.models.v2_steam_partner_inventory_observation import V2SteamPartnerInventoryObservation as V2SteamPartnerInventoryObservation
+from openskin_client.models.v2_steam_partner_inventory_request import V2SteamPartnerInventoryRequest as V2SteamPartnerInventoryRequest
 from openskin_client.models.v2_steam_profile import V2SteamProfile as V2SteamProfile
 from openskin_client.models.v2_steam_trade_budget_usage import V2SteamTradeBudgetUsage as V2SteamTradeBudgetUsage
 from openskin_client.models.v2_steam_trade_eligibility import V2SteamTradeEligibility as V2SteamTradeEligibility
